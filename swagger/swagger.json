@@ -1,0 +1,1529 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Universities API"
+  },
+  "host": "127.0.0.1:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "university",
+      "description": ""
+    },
+    {
+      "name": "teacher",
+      "description": ""
+    },
+    {
+      "name": "course",
+      "description": ""
+    },
+    {
+      "name": "student",
+      "description": ""
+    },
+    {
+      "name": "mark",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/university": {
+      "post": {
+        "tags": [
+          "university"
+        ],
+        "summary": "Create a new university",
+        "description": "",
+        "operationId": "addUniversity",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Write universities data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/University"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created university",
+            "schema": {
+              "$ref": "#/definitions/University"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Sql Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "university"
+        ],
+        "summary": "Get university by id",
+        "description": "",
+        "operationId": "getUniversityById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "University id",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get university by id success",
+            "schema": {
+              "$ref": "#/definitions/UniversityResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "sql error"
+          }
+        }
+      }
+    },
+    "/university/list": {
+      "get": {
+        "tags": [
+          "university"
+        ],
+        "summary": "Get university list",
+        "description": "",
+        "operationId": "getUniversityList",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "perPage",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get university list",
+            "schema": {
+              "$ref": "#/definitions/UniversityListResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "sql error"
+          }
+        }
+      }
+    },
+    "/university/student/rating": {
+      "get": {
+        "tags": [
+          "university"
+        ],
+        "summary": "Get university list with students rating",
+        "description": "",
+        "operationId": "getUniversityListWithStudentsRating",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get university list with students rating success",
+            "schema": {
+              "$ref": "#/definitions/UniversityListWithStudentsRatingResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "sql error"
+          }
+        }
+      }
+    },
+    "/teacher": {
+      "post": {
+        "tags": [
+          "teacher"
+        ],
+        "summary": "Create teacher",
+        "description": "",
+        "operationId": "addTeacherToUniversity",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Teacher data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Teacher"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Teacher was created",
+            "schema": {
+              "$ref": "#/definitions/TeacherResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "sql error"
+          }
+        }
+      }
+    },
+    "/teacher/university": {
+      "get": {
+        "tags": [
+          "teacher"
+        ],
+        "summary": "Get teachers from university",
+        "description": "",
+        "operationId": "getTeacherList",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "university_id",
+            "in": "query",
+            "description": "university id",
+            "type": "integer",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "perPage",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get teachers from university",
+            "schema": {
+              "$ref": "#/definitions/TeacherListResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "sql error"
+          }
+        }
+      }
+    },
+    "/course": {
+      "post": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Create course",
+        "description": "",
+        "operationId": "addCourseToUniversity",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Course object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Course"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course was created",
+            "schema": {
+              "$ref": "#/definitions/CourseResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "sql error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Delete course",
+        "description": "",
+        "operationId": "deleteCourseFromUniversity",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Course id",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course was deleted",
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Course was deleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "course not found"
+          }
+        }
+      }
+    },
+    "/course/list": {
+      "get": {
+        "tags": [
+          "course"
+        ],
+        "summary": "Get courses list from university",
+        "description": "",
+        "operationId": "getCourseList",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "university id",
+            "type": "integer",
+            "minimum": 1,
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "perPage",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get courses from university",
+            "schema": {
+              "$ref": "#/definitions/CourseListResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "course not found"
+          }
+        }
+      }
+    },
+    "/student": {
+      "post": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Create student",
+        "description": "",
+        "operationId": "createStudent",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create student",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Student"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Student was created",
+            "schema": {
+              "$ref": "#/definitions/StudentResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "sql error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Edit student data",
+        "description": "",
+        "operationId": "editStudentData",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Student data and id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StudentUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Student data was updated",
+            "schema": {
+              "$ref": "#/definitions/StudentResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "student not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Delete student from university",
+        "description": "",
+        "operationId": "deleteStudentFromUniversity",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "student id who need to be deleted",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Student was deleted",
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Student was deleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "student not found"
+          }
+        }
+      }
+    },
+    "/student/university/list": {
+      "get": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Get students from university",
+        "description": "",
+        "operationId": "getStudentsFfromUniversity",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "university_id",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "perPage",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get students from university",
+            "schema": {
+              "$ref": "#/definitions/StudentListUniversityResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "University not found"
+          }
+        }
+      }
+    },
+    "/student/course/list": {
+      "get": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Get students from course",
+        "description": "",
+        "operationId": "getStudentsFromCourse",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "query",
+            "description": "course_id",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "perPage",
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get student list by course id success",
+            "schema": {
+              "$ref": "#/definitions/StudentListCourseResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "Course not found"
+          }
+        }
+      }
+    },
+    "/student/course/rating": {
+      "get": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Get students rating from course by count",
+        "description": "",
+        "operationId": "getStudentssRatingFromCourse",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "query",
+            "description": "course_id",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "count",
+            "type": "integer",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get students rating from course by count",
+            "schema": {
+              "$ref": "#/definitions/StudentRating"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "Course not found"
+          }
+        }
+      }
+    },
+    "/student-course": {
+      "post": {
+        "tags": [
+          "student course"
+        ],
+        "summary": "Link student to course",
+        "description": "",
+        "operationId": "linkStudentToCourse",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "student id and course id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StudentLinkCourse"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Student was linked to course",
+            "schema": {
+              "$ref": "#/definitions/StudentLinkCourseResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "course not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "student course"
+        ],
+        "summary": "Kick student from course",
+        "description": "",
+        "operationId": "kickStudentFromCourse",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "student id and course id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StudentLinkCourse"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Student on this course was deleted",
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Student on this course was deleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "Student on this course not found"
+          }
+        }
+      }
+    },
+    "/mark": {
+      "post": {
+        "tags": [
+          "mark"
+        ],
+        "summary": "Create mark to course for student",
+        "description": "",
+        "operationId": "addMarkForStudent",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Mark data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Mark"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mark was created",
+            "schema": {
+              "$ref": "#/definitions/MarkResponse"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "500": {
+            "description": "Student on this course not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "University": {
+      "type": "object",
+      "required": [
+        "country",
+        "city",
+        "name",
+        "accreditation"
+      ],
+      "properties": {
+        "country": {
+          "type": "string",
+          "example": "Ukraine"
+        },
+        "city": {
+          "type": "string",
+          "example": "Kyiv"
+        },
+        "name": {
+          "type": "string",
+          "example": "KPI"
+        },
+        "accreditation": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 5
+        }
+      },
+      "xml": {
+        "name": "University"
+      }
+    },
+    "UniversityResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "country",
+        "city",
+        "name",
+        "accreditation"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "country": {
+          "type": "string",
+          "example": "Ukraine"
+        },
+        "city": {
+          "type": "string",
+          "example": "Kyiv"
+        },
+        "name": {
+          "type": "string",
+          "example": "KPI"
+        },
+        "accreditation": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 5
+        }
+      },
+      "xml": {
+        "name": "University"
+      }
+    },
+    "UniversityListResponse": {
+      "type": "object",
+      "required": [
+        "page",
+        "universities"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "universities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UniversityResponse"
+          }
+        }
+      },
+      "xml": {
+        "name": "University"
+      }
+    },
+    "Teacher": {
+      "type": "object",
+      "required": [
+        "first_name",
+        "last_name",
+        "age",
+        "university_id"
+      ],
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "example": "Janna"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Karpovna"
+        },
+        "age": {
+          "type": "integer",
+          "example": 45
+        },
+        "university_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 2
+        }
+      },
+      "xml": {
+        "name": "Teacher"
+      }
+    },
+    "TeacherResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "first_name",
+        "last_name",
+        "age",
+        "user_role",
+        "university_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Janna"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Karpovna"
+        },
+        "age": {
+          "type": "integer",
+          "example": 45
+        },
+        "user_role": {
+          "type": "string",
+          "enum": [
+            "teacher"
+          ]
+        },
+        "university_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 2
+        }
+      },
+      "xml": {
+        "name": "Teacher"
+      }
+    },
+    "TeacherListResponse": {
+      "type": "object",
+      "required": [
+        "page",
+        "teachers"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "teachers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TeacherResponse"
+          }
+        }
+      },
+      "xml": {
+        "name": "Teacher"
+      }
+    },
+    "Course": {
+      "type": "object",
+      "required": [
+        "name",
+        "teacher_id",
+        "university_id"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Design"
+        },
+        "teacher_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "university_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "xml": {
+        "name": "Course"
+      }
+    },
+    "CourseResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "teacher_id",
+        "university_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Design"
+        },
+        "teacher_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "university_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "xml": {
+        "name": "Course"
+      }
+    },
+    "CourseListResponse": {
+      "type": "object",
+      "required": [
+        "page",
+        "courses"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "courses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseResponse"
+          }
+        }
+      },
+      "xml": {
+        "name": "Course"
+      }
+    },
+    "StudentLinkCourse": {
+      "type": "object",
+      "required": [
+        "student_id",
+        "course_id"
+      ],
+      "properties": {
+        "student_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "course_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "xml": {
+        "name": "StudentLinkCourse"
+      }
+    },
+    "StudentLinkCourseResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "student_id",
+        "course_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "student_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "course_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "xml": {
+        "name": "StudentLinkCourse"
+      }
+    },
+    "Student": {
+      "type": "object",
+      "required": [
+        "first_name",
+        "last_name",
+        "age",
+        "university_id"
+      ],
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "example": "Johnatan"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Joestar"
+        },
+        "age": {
+          "type": "integer",
+          "example": 21
+        },
+        "university_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 2
+        }
+      },
+      "xml": {
+        "name": "Student"
+      }
+    },
+    "StudentUpdate": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Johnatan"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Joestar"
+        },
+        "age": {
+          "type": "integer",
+          "example": 21
+        }
+      },
+      "xml": {
+        "name": "StudentUpdate"
+      }
+    },
+    "StudentResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "first_name",
+        "last_name",
+        "age",
+        "user_role",
+        "university_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Johnatan"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Joestar"
+        },
+        "age": {
+          "type": "integer",
+          "example": 21
+        },
+        "user_role": {
+          "type": "string",
+          "enum": [
+            "student"
+          ]
+        },
+        "university_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 2
+        }
+      },
+      "xml": {
+        "name": "Student"
+      }
+    },
+    "StudentListCourseResponse": {
+      "type": "object",
+      "required": [
+        "page",
+        "students"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "students": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StudentResponse"
+          }
+        }
+      },
+      "xml": {
+        "name": "Student"
+      }
+    },
+    "StudentListUniversityResponse": {
+      "type": "object",
+      "required": [
+        "page",
+        "students"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "university_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 2
+        },
+        "students": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StudentResponse"
+          }
+        }
+      },
+      "xml": {
+        "name": "Student"
+      }
+    },
+    "StudentRating": {
+      "type": "object",
+      "required": [
+        "ratings"
+      ],
+      "properties": {
+        "ratings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "student_id",
+              "rating"
+            ],
+            "properties": {
+              "student_id": {
+                "type": "integer",
+                "minimum": 1,
+                "example": 7
+              },
+              "rating": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 100,
+                "example": 72.5
+              }
+            }
+          }
+        }
+      },
+      "xml": {
+        "name": "Rating"
+      }
+    },
+    "Mark": {
+      "type": "object",
+      "required": [
+        "mark",
+        "student_id",
+        "course_id"
+      ],
+      "properties": {
+        "mark": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "example": 85
+        },
+        "student_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 7
+        },
+        "course_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "xml": {
+        "name": "Mark"
+      }
+    },
+    "MarkResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "mark",
+        "student_id",
+        "course_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "mark": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "example": 85
+        },
+        "student_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 7
+        },
+        "course_id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        }
+      },
+      "xml": {
+        "name": "MarkResponse"
+      }
+    },
+    "UniversityListWithStudentsRatingResponse": {
+      "type": "object",
+      "required": [
+        "result"
+      ],
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UniversityListWithStudentsRatingItem"
+          }
+        }
+      }
+    },
+    "UniversityListWithStudentsRatingItem": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "students"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Los Angeles University"
+        },
+        "students": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "rating"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 1,
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Jed Burgess"
+              },
+              "rating": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 100,
+                "example": 85
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

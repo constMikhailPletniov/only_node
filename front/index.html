@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Universities</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+<body>
+
+<ul id="menu" class="menu"></ul>
+
+
+<script type="text/template" id="university-template">
+    <details class="menu__item">
+        <summary class = "menu__item__title">
+            <span class="university-id">{{university-id}}</span>
+            <span class="university-name">{{university-name}}</span></summary>
+        <ul class="students"></ul>
+    </details>
+</script>
+
+<script type="text/template" id="students-template">
+    <ul class="students__item">
+        <span class="students__item__id">students-id</span>
+        <span class="students__item__first_name">students-first_name</span>
+        <span class="students__item__last_name">students-last_name</span>
+        <span class="students__item__rating">students-rating</span>
+    </ul>
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>
